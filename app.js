@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const user = require('./controllers/usercontroller');
 const game = require('./controllers/gamecontroller');
+const authValidate = require('./middleware/validate-session');
 const User = require('./models/user');
 const Game = require('./models/game');
 
@@ -25,7 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/auth', user);
-app.use(require('./middleware/validate-session'))
+app.use(authValidate);
 app.use('/api/game', game);
 
 start();

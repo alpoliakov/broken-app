@@ -115,18 +115,138 @@ Create and define a model and export it:
 module.exports = createGameModel(sequelize, DataTypes);
 ````
 
-4.c* "app.js" : 6, There are no definable models to sync with the database using **model.sync(options)**
+4.c* - "app.js" : 6, There are no definable models to sync with the database using **model.sync(options)**
 Exporting the User model and the Game model to **app.js** lines 11, 12:
 ````
 const User = require('./models/user');
 const Game = require('./models/game');
 ````
 
-5. "./db.js" : 1 Incorrect require Sequelize class
-````youtrack
+5 - "./db.js" : 1 Incorrect require Sequelize class
+````
 const Sequelize = require('sequelize') -> const { Sequelize } = require('sequelize')
 ````
 
+6 - "./controllers/usercontroller.js" : 11, Field name error:
+````
+passwordhash: bcrypt.hashSync(req.body.user.password, 10) -> passwordHash: bcrypt.hashSync(req.body.user.password, 10)
+````
+
+7 - "./controllers/usercontroller.js" : 9, 10, 11, 12, Error in processing the object **req.body**.
+A non-existent field is specified **user**.
+````
+User.create({
+        full_name: req.body.user.full_name,
+        username: req.body.user.username,
+        passwordHash: bcrypt.hashSync(req.body.user.password, 10),
+        email: req.body.user.email,
+    })
+````
+replace with:
+````
+User.create({
+        full_name: req.body.full_name,
+        username: req.body.username,
+        passwordHash: bcrypt.hashSync(req.body.password, 10),
+        email: req.body.email,
+    })
+````
+
+8 - "./controllers/usercontroller.js" : 30, 32 Error in processing the object **req.body**.
+A non-existent field is specified **user**.
+````youtrack
+30. User.findOne({ where: { username: req.body.user.username } })
+32. bcrypt.compare(req.body.user.password, user.passwordHash, function (err, matches)
+````
+replace with:
+````
+30. User.findOne({ where: { username: req.body.username } })
+32. bcrypt.compare(req.body.password, user.passwordHash, function (err, matches)
+````
+
+9 - "./controllers/gamecontroller.js" : 7, Incorrectly committed parameter **data** in **function findSuccess**:
+````
+function findSuccess(data) {
+    res.status(200).json({
+       games: games,
+       message: "Data fetched."
+    })
+}
+````
+replace with:
+````
+function findSuccess(games) {
+    res.status(200).json({
+       games: games,
+       message: "Data fetched."
+    })
+}
+````
+
+10 - "./controllers/gamecontroller.js" : 41-46, Error in processing the object **req.body**.
+A non-existent field is specified **game**.
+````
+Game.create({
+        title: req.body.game.title,
+        owner_id: req.body.user.id,
+        studio: req.body.game.studio,
+        esrb_rating: req.body.game.esrb_rating,
+        user_rating: req.body.game.user_rating,
+        have_played: req.body.game.have_played
+    })
+````
+replace with:
+````
+Game.create({
+        title: req.body.title,
+        owner_id: req.user.id,
+        studio: req.body.studio,
+        esrb_rating: req.body.esrb_rating,
+        user_rating: req.body.user_rating,
+        have_played: req.body.have_played,
+    })
+````
+
+10a - "./controllers/gamecontroller.js" : 64-68, Error in processing the object **req.body**.
+A non-existent field is specified **game**.
+````
+Game.update({
+        title: req.body.game.title,
+        studio: req.body.game.studio,
+        esrb_rating: req.body.game.esrb_rating,
+        user_rating: req.body.game.user_rating,
+        have_played: req.body.game.have_played
+    }
+````
+replace width:
+````
+Game.update({
+        title: req.body.title,
+        studio: req.body.studio,
+        esrb_rating: req.body.esrb_rating,
+        user_rating: req.body.user_rating,
+        have_played: req.body.have_played
+    }
+````
+
+11 - "./controllers/gamecontroller.js" : 73, Missing id field in **req.user** object:
+````
+{
+   where: {
+     id: req.params.id,
+     owner_id: req.user
+    }
+}
+````
+fix it:
+````
+{
+   where: {
+     id: req.params.id,
+     owner_id: req.user.id
+    }
+}
+````
 
 ***
 #### **Bugs are fixed, the application works correctly.**
@@ -183,3 +303,20 @@ in line 1:
 const Sequelize = require('sequelize') -> const { Sequelize } = require('sequelize')
 ````
 Added semicolon in lines 6, 16
+
+4 - In **"./controllers/usercontroller.js" : 3** replace **var** with **const**:
+````
+var jwt = require('jsonwebtoken') -> const jwt = require('jsonwebtoken')
+````
+in line 34 - replace **var** with **const**:
+````youtrack
+var token = jwt.sign( ... ) -> const token = jwt.sign( ... )
+````
+5 - In **"./controllers/gamecontroller.js" : 1** replace **var** with **const**:
+````
+var router = require('express').Router() -> const router = require('express').Router()
+````
+6 - In **"./middleware/validate-session.js" : 8** replace **var** with **const**:
+````
+var sessionToken = req.headers.authorization -> const sessionToken = req.headers.authorization
+````

@@ -272,7 +272,7 @@ module.exports = function(sequelize, DataTypes) { ... } -> const createGameModel
 ````
 in line 38 added semicolon.
 
-3 - In **"./db.js" : 3, 4** let's translate the parameters into a global variable **. env **
+4 - In **"./db.js" : 3, 4** let's translate the parameters into a global variable **. env **
 In line 2 added:
 ````
 require('dotenv').config();
@@ -302,21 +302,94 @@ in line 1:
 ````
 const Sequelize = require('sequelize') -> const { Sequelize } = require('sequelize')
 ````
+in lines 9, 13 - replace function expression with arrow-function:
+````
+function success() {
+    console.log('Connected to DB');
+  },
+
+  function fail(err) {
+    console.log(`Error: ${err}`);
+  }
+````
+after
+````
+() => console.log('Connected to DB'),
+
+(err) => console.log(`Error: ${err}`),
+````
 Added semicolon in lines 6, 16
 
-4 - In **"./controllers/usercontroller.js" : 3** replace **var** with **const**:
+5 - In **"./controllers/usercontroller.js" : 3** replace **var** with **const**:
 ````
 var jwt = require('jsonwebtoken') -> const jwt = require('jsonwebtoken')
 ````
+in lines 15, 23, Replace function expression with arrow-function:
+````
+function signupSuccess(user) {
+   const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+      res.status(200).json({
+         user: user,
+         token: token,
+      )
+},
+
+function signupFail(err) {
+   res.status(500).send(err.message)
+}
+````
+after:
+````
+(user) => {
+   const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+   res.status(200).json({
+      user,
+      token,
+   });
+},
+
+(err) => {
+   res.status(500).send(err.message);
+},
+````
+
 in line 34 - replace **var** with **const**:
 ````youtrack
 var token = jwt.sign( ... ) -> const token = jwt.sign( ... )
 ````
-5 - In **"./controllers/gamecontroller.js" : 1** replace **var** with **const**:
+
+6 - In **"./controllers/gamecontroller.js" : 1** replace **var** with **const**:
 ````
 var router = require('express').Router() -> const router = require('express').Router()
 ````
-6 - In **"./middleware/validate-session.js" : 8** replace **var** with **const**:
+in lines 7, 14, 25, 31, 49, 56, 77, 84, 101, 108 Replace function expression with arrow-function:
+example before:
+````
+function findSuccess(games) {
+   res.status(200).json({
+       games: games,
+       message: "Data fetched."
+   )
+},
+
+function findFail() {
+   res.status(500).json({
+       message: "Data not found"
+   })
+}
+````
+after
+````youtrack
+(games) => res.status(200).json({ games, message: 'Data fetched.' }),
+() => res.status(500).json({ message: 'Data not found' }),
+````
+
+7 - In **"./middleware/validate-session.js" : 8** replace **var** with **const**:
 ````
 var sessionToken = req.headers.authorization -> const sessionToken = req.headers.authorization
 ````
+in line 5 Replacement of a non-strict comparison with a strict one:
+````
+if (req.method == 'OPTIONS') { ... } -> if (req.method === 'OPTIONS') { ... }
+````
+in line 16, 17, 21, 24, 29 Added semicolon.

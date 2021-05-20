@@ -7,9 +7,8 @@ const db = require('./db');
 const user = require('./controllers/usercontroller');
 const game = require('./controllers/gamecontroller');
 const authValidate = require('./middleware/validate-session');
-// eslint-disable-next-line no-unused-vars
+
 const User = require('./models/user');
-// eslint-disable-next-line no-unused-vars
 const Game = require('./models/game');
 
 const { PORT } = process.env;
@@ -24,7 +23,6 @@ const start = async () => {
 };
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/auth', user);
 app.use(authValidate);

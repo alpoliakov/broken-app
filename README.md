@@ -27,6 +27,29 @@ npm install
 ````
 
 ### Usage
+To use you need to install _**PostgreSQL**_ and _**pgAdmin 4**_ depending on the OS installed on your device. 
+This can be done by following [this link](https://www.enterprisedb.com/downloads/postgresql).
+
+You also need to install the _**Postman**_ client application by clicking on [this link](https://www.getpostman.com/).
+
+- **PostgreSQL** should work on ````localhost````, on ````5433```` port.
+- Create user.
+- Run pgAdmin4.
+- Create database with ````gamedb```` name.
+
+- In the root of the project, you need to create a **.env** file and register the following global variables in it:
+````
+PORT=4000<port number for express server>
+DB=gamedb<your database name>
+DB_USER=<your username>
+DB_PASSWORD=<your password>
+DB_HOST=localhost
+DB_PORT=5433
+````
+- Run the application with the command:
+````
+npm start
+````
 
 ### Compilation errors
 

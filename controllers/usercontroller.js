@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-router.post('/signup', async (req, res) => {
-  await User.create({
+router.post('/signup', (req, res) => {
+   User.create({
     full_name: req.body.user.full_name,
     username: req.body.user.username,
     passwordHash: bcrypt.hashSync(req.body.user.password, 10),

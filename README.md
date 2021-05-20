@@ -1,6 +1,34 @@
 # broken-app
+### Technologies and tools used
+- _**PostgreSQL 13**_
+- _**pgAdmin 4**_
+- _**Postman**_
 
-### **Compilation errors**
+### Installation instructions
+#### Clone repository
+In the CLI, run this command to get files from this repository:
+````
+git clone https://github.com/alpoliakov/broken-app
+````
+#### Transitions
+After cloning is complete, open the directory containing the app:
+````
+cd broken-app
+````
+and go to the branch ````task-3/solution````
+````
+git checkout task-3/solution
+````
+#### Install dependencies
+````
+npm i
+or
+npm install
+````
+
+### Usage
+
+### Compilation errors
 
 - **1** - **"./controllers/usercontroller.js" : line 1**, ReferenceError: Router is not defined
 ````
@@ -37,7 +65,7 @@ module.exports = routers -> module.exports = router
 ````
 db.sync()
 ````
-for solution add in './db':
+for solution add in **'./db'**:
 ```` 
 module.exports = sequelize;
 ````
@@ -46,14 +74,14 @@ module.exports = sequelize;
 var User = require('sequelize').import('../models/user') -> const User = require('../models/user')
 ````
 *** 
-#### **After fixing compilation errors**
+#### _After fixing compilation errors:_
 ````
 App is listening on 4000
 ````
 
 
 ***
-### **Logic errors**
+### Logic errors
 - **1** - **"package.json"** To successfully work with the database via **Sequelize**, you need to update the **pg** package to the latest version.
 ````
 "dependencies": {
@@ -200,10 +228,10 @@ fix it:
 
 
 ***
-#### Bugs are fixed, the application works correctly.
+#### _Bugs are fixed, the application works correctly._
 ***
 
-### **Refactoring code**
+### Refactoring code
 
 - **1** - In **"app.js" lines 1-5** - Replace **var** with **const**
 **in line 5** - added semicolon: 

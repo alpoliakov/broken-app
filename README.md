@@ -72,13 +72,13 @@ npm start
   - to ````get all```` the games of the user (GET)
     - ````http://localhost:${PORT}/api/game/all````
     
-  - to get one user ````game```` (GET) (the game **id** is passed as **````Parameters````**)
+  - to get one user ````game```` (GET) (the game **id** is passed as **````Params````**)
     - ````http://localhost:${PORT}/api/game/:id````
     
-  - to ````update the game```` (PUT) (the game **id** is passed as **````Parameters````**)
+  - to ````update the game```` (PUT) (the game **id** is passed as **````Params````**)
     - ````http://localhost:${PORT}/api/game/update/:id````
     
-  - to ````delete game```` (DELETE) (the game **id** is passed as **````Parameters````**)
+  - to ````delete game```` (DELETE) (the game **id** is passed as **````Params````**)
     - ````http://localhost:${PORT}/api/game/remove/:id````
     
   _Requests and responses are implemented in the JSON format._ 

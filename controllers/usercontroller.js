@@ -2,6 +2,9 @@ const router = require('express').Router();
 // const bcrypt = require('bcryptjs');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const { SECRET_KEY } = process.env;
 
 const User = require('../models/user');
 
@@ -14,7 +17,7 @@ router.post('/signup', (req, res) => {
   })
     .then(
       (user) => {
-        const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+        const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: 60 * 60 * 24 });
         res.status(201).json({
           user,
           token,
@@ -30,7 +33,7 @@ router.post('/signin', (req, res) => {
     if (user) {
       bcrypt.compare(req.body.user.password, user.passwordHash, (err, matches) => {
         if (matches) {
-          const token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+          const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: 60 * 60 * 24 });
           res.json({
             user,
             message: 'Successfully authenticated.',

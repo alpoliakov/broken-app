@@ -46,6 +46,7 @@ DB_USER=<your username>
 DB_PASSWORD=<your password>
 DB_HOST=localhost
 DB_PORT=5433
+SECRET_KEY=<your secret key to generate the token>
 ````
 - Run the application with the command:
 ````

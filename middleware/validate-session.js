@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+require('dotenv').config();
+
+const { SECRET_KEY } = process.env;
 
 module.exports = function (req, res, next) {
   if (req.method === 'OPTIONS') {
@@ -9,7 +12,7 @@ module.exports = function (req, res, next) {
     console.log(sessionToken);
     if (!sessionToken) return res.status(403).send({ auth: false, message: 'No token provided.' });
 
-    jwt.verify(sessionToken, 'lets_play_sum_games_man', (err, decoded) => {
+    jwt.verify(sessionToken, SECRET_KEY, (err, decoded) => {
       if (decoded) {
         User.findOne({ where: { id: decoded.id } })
           .then((user) => {

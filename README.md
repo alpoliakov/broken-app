@@ -58,24 +58,26 @@ npm start
   - for ````User signin ```` (POST)
     - ````http://localhost:${PORT}/api/auth/signin````
     
-  _**warning:** For requests with the game entity, you must add the authorization field to the request headers and assign it the value of the token created in the User._
+  _**warning:** For requests with the game entity, you must add the **authorization** field to the request **Headers** and assign it the value of the token created in the User._
   
   - for ````Game create```` (POST)
-    - ````http://localhost:4000/api/game/create````
+    - ````http://localhost:${PORT}/api/game/create````
     
   - to ````get all```` the games of the user (GET)
-    - ````http://localhost:4000/api/game/all````
+    - ````http://localhost:${PORT}/api/game/all````
     
   - to get one user ````game```` (GET)
-    - ````http://localhost:4000/api/game/:id````
+    - ````http://localhost:${PORT}/api/game/:id````
     
   - to ````update the game```` (PUT)
-    - ````http://localhost:4000/api/game/update/:id````
+    - ````http://localhost:${PORT}/api/game/update/:id````
     
   - to ````delete game```` (DELETE)
-    - ````http://localhost:4000/api/game/remove/:id````
+    - ````http://localhost:${PORT}/api/game/remove/:id````
     
   _Requests and responses are implemented in the JSON format._ 
+  
+  **PORT** - _the port on which your application is running (take from the **.env** file)_ 
 
 ### Compilation errors
 

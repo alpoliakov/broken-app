@@ -51,6 +51,11 @@ DB_PORT=5433
 ````
 npm start
 ````
+  If the application is successfully launched, the following message will be displayed in the terminal:_
+  ````
+  Connected to DB
+  App is running on http://localhost:4000
+ ````
 - Go to **Postman** and create requests with the following URL:
   - for ````User create```` (POST)
     - ````http://localhost:${PORT}/api/auth/signup````

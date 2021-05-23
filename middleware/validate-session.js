@@ -9,7 +9,11 @@ module.exports = function (req, res, next) {
     next(); // allowing options as a method for request
   } else {
     // We use the Bearer method of authorization when making requests through the Postman
-    const sessionToken = req.headers.authorization.split(' ')[1];
+    const headerResult = req.headers.authorization;
+
+    if (!headerResult) return res.status(403).send({ auth: false, message: 'No token provided.' });
+
+    const sessionToken = headerResult.split(' ')[1];
     console.log(sessionToken);
     if (!sessionToken) return res.status(403).send({ auth: false, message: 'No token provided.' });
 

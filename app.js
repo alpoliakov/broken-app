@@ -15,14 +15,14 @@ const { PORT } = process.env;
 
 const start = async () => {
   try {
-    await db.sync({ force: true });
+    await db.sync({ force: true, logging: false });
     app.listen(PORT, () => console.log(`App is running on http://localhost:${PORT}`));
   } catch (err) {
     console.error(err.message);
   }
 };
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/api/auth', user);
 app.use(authValidate);
